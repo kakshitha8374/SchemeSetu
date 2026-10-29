@@ -144,7 +144,6 @@ def _get_scheme_by_id(schemes, sid):
 def test_scheme_ssp_sc_postmatric():
     schemes = load_schemes()
     s = _get_scheme_by_id(schemes, "ssp-sc-postmatric")
-    # Qualifying
     p_ok = {"age": 19, "state": "Karnataka", "annual_income": 150000, "category": "SC", "course": "Engineering", "gender": "Male"}
     assert evaluate(p_ok, s)["status"] == "eligible"
     # Fail income
@@ -153,10 +152,9 @@ def test_scheme_ssp_sc_postmatric():
     assert evaluate({**p_ok, "category": "General"}, s)["status"] == "not_eligible"
     # Fail state
     assert evaluate({**p_ok, "state": "Tamil Nadu"}, s)["status"] == "not_eligible"
-    # Fail course
-    assert evaluate({**p_ok, "course": "Fashion Design"}, s)["status"] == "not_eligible"
-    # Fail min age
-    assert evaluate({**p_ok, "age": 14}, s)["status"] == "not_eligible"
+    # Course and age rules were removed because no source confirmed them
+    assert evaluate({**p_ok, "course": "Fashion Design"}, s)["status"] == "eligible"
+    assert evaluate({**p_ok, "age": 14}, s)["status"] == "eligible"
 
 
 def test_scheme_ssp_st_postmatric():
@@ -167,7 +165,6 @@ def test_scheme_ssp_st_postmatric():
     assert evaluate({**p_ok, "annual_income": 350000}, s)["status"] == "not_eligible"
     assert evaluate({**p_ok, "category": "OBC"}, s)["status"] == "not_eligible"
     assert evaluate({**p_ok, "state": "Kerala"}, s)["status"] == "not_eligible"
-    assert evaluate({**p_ok, "age": 13}, s)["status"] == "not_eligible"
 
 
 def test_scheme_ssp_bcwd_postmatric():
@@ -178,7 +175,8 @@ def test_scheme_ssp_bcwd_postmatric():
     assert evaluate({**p_ok, "annual_income": 300000}, s)["status"] == "not_eligible"
     assert evaluate({**p_ok, "category": "SC"}, s)["status"] == "not_eligible"
     assert evaluate({**p_ok, "state": "Maharashtra"}, s)["status"] == "not_eligible"
-    assert evaluate({**p_ok, "age": 12}, s)["status"] == "not_eligible"
+    # The card text must warn about the lower Rs 1 lakh cap for Categories 2A, 3A and 3B
+    assert "Categories 2A, 3A and 3B" in s["benefit"]
 
 
 def test_scheme_karnataka_vidyasiri():
@@ -186,17 +184,11 @@ def test_scheme_karnataka_vidyasiri():
     s = _get_scheme_by_id(schemes, "karnataka-vidyasiri")
     p_ok = {"age": 19, "state": "Karnataka", "annual_income": 180000, "category": "OBC", "course": "Arts", "gender": "Female"}
     assert evaluate(p_ok, s)["status"] == "eligible"
-    # SC and ST also eligible for vidyasiri
     assert evaluate({**p_ok, "category": "SC"}, s)["status"] == "eligible"
     assert evaluate({**p_ok, "category": "ST"}, s)["status"] == "eligible"
-    # Fail income
     assert evaluate({**p_ok, "annual_income": 300000}, s)["status"] == "not_eligible"
-    # Fail category (General not in vidyasiri)
     assert evaluate({**p_ok, "category": "General"}, s)["status"] == "not_eligible"
-    # Fail state
     assert evaluate({**p_ok, "state": "Goa"}, s)["status"] == "not_eligible"
-    # Fail age
-    assert evaluate({**p_ok, "age": 14}, s)["status"] == "not_eligible"
 
 
 def test_scheme_aicte_pragati_girls():
@@ -204,11 +196,8 @@ def test_scheme_aicte_pragati_girls():
     s = _get_scheme_by_id(schemes, "aicte-pragati-girls")
     p_ok = {"gender": "Female", "annual_income": 400000, "course": "Engineering", "state": "Karnataka", "age": 19}
     assert evaluate(p_ok, s)["status"] == "eligible"
-    # Fail income
     assert evaluate({**p_ok, "annual_income": 900000}, s)["status"] == "not_eligible"
-    # Fail gender
     assert evaluate({**p_ok, "gender": "Male"}, s)["status"] == "not_eligible"
-    # Fail course
     assert evaluate({**p_ok, "course": "Arts"}, s)["status"] == "not_eligible"
 
 
@@ -217,53 +206,34 @@ def test_scheme_central_sector_scholarship():
     s = _get_scheme_by_id(schemes, "central-sector-scholarship")
     p_ok = {"age": 19, "annual_income": 300000, "course": "Science", "state": "Karnataka", "gender": "Female"}
     assert evaluate(p_ok, s)["status"] == "eligible"
-    # Fail income
-    assert evaluate({**p_ok, "annual_income": 500000}, s)["status"] == "not_eligible"
-    # Fail min age
-    assert evaluate({**p_ok, "age": 16}, s)["status"] == "not_eligible"
-    # Fail max age
-    assert evaluate({**p_ok, "age": 26}, s)["status"] == "not_eligible"
-    # Fail course
-    assert evaluate({**p_ok, "course": "Carpentry"}, s)["status"] == "not_eligible"
+    # Income cap is Rs 4.5 lakh (inclusive)
+    assert evaluate({**p_ok, "annual_income": 450000}, s)["status"] == "eligible"
+    assert evaluate({**p_ok, "annual_income": 450001}, s)["status"] == "not_eligible"
+    # Missing income needs more info
+    assert evaluate({**p_ok, "annual_income": None}, s)["status"] == "needs_info"
+    # Age and course rules were removed because no source confirmed them
+    assert evaluate({**p_ok, "age": 16}, s)["status"] == "eligible"
+    assert evaluate({**p_ok, "age": 26}, s)["status"] == "eligible"
+    # The 80th percentile condition cannot be checked by the app, so the card must say so
+    assert "80th percentile" in s["benefit"]
 
 
-def test_scheme_minority_mcm_technical():
+def test_removed_schemes_are_gone():
+    ids = {s["id"] for s in load_schemes()}
+    for removed in ["karnataka-free-laptop", "ksbdb-saandeepani", "minority-mcm-technical"]:
+        assert removed not in ids
+
+
+def test_scheme_data_integrity():
     schemes = load_schemes()
-    s = _get_scheme_by_id(schemes, "minority-mcm-technical")
-    p_ok = {"age": 20, "state": "Karnataka", "annual_income": 200000, "course": "Engineering", "gender": "Female"}
-    assert evaluate(p_ok, s)["status"] == "eligible"
-    assert evaluate({**p_ok, "annual_income": 350000}, s)["status"] == "not_eligible"
-    assert evaluate({**p_ok, "state": "Delhi"}, s)["status"] == "not_eligible"
-    assert evaluate({**p_ok, "age": 14}, s)["status"] == "not_eligible"
-
-
-def test_scheme_ksbdb_saandeepani():
-    schemes = load_schemes()
-    s = _get_scheme_by_id(schemes, "ksbdb-saandeepani")
-    p_ok = {"age": 20, "state": "Karnataka", "annual_income": 300000, "category": "EWS", "course": "Commerce", "gender": "Male"}
-    assert evaluate(p_ok, s)["status"] == "eligible"
-    # General also eligible
-    assert evaluate({**p_ok, "category": "General"}, s)["status"] == "eligible"
-    # Fail income
-    assert evaluate({**p_ok, "annual_income": 900000}, s)["status"] == "not_eligible"
-    # Fail category
-    assert evaluate({**p_ok, "category": "SC"}, s)["status"] == "not_eligible"
-    # Fail state
-    assert evaluate({**p_ok, "state": "Bihar"}, s)["status"] == "not_eligible"
-    # Fail age
-    assert evaluate({**p_ok, "age": 14}, s)["status"] == "not_eligible"
-
-
-def test_scheme_karnataka_free_laptop():
-    schemes = load_schemes()
-    s = _get_scheme_by_id(schemes, "karnataka-free-laptop")
-    p_ok = {"age": 18, "state": "Karnataka", "annual_income": 150000, "course": "Science", "gender": "Male"}
-    assert evaluate(p_ok, s)["status"] == "eligible"
-    assert evaluate({**p_ok, "annual_income": 300000}, s)["status"] == "not_eligible"
-    assert evaluate({**p_ok, "state": "Kerala"}, s)["status"] == "not_eligible"
-    assert evaluate({**p_ok, "age": 15}, s)["status"] == "not_eligible"
-    assert evaluate({**p_ok, "age": 27}, s)["status"] == "not_eligible"
-    assert evaluate({**p_ok, "course": "Carpentry"}, s)["status"] == "not_eligible"
+    ids = [s["id"] for s in schemes]
+    assert len(ids) == len(set(ids))
+    for s in schemes:
+        for key in ["id", "name", "provider", "benefit", "url", "rules", "verified", "needs_check"]:
+            assert key in s, f"{s.get('id')} missing {key}"
+        assert s["url"].startswith("https://")
+        # Nothing is marked verified until a human has checked the official page
+        assert s["verified"] is False
 
 
 def test_tavily_search_fallback_and_discrepancy():
@@ -294,7 +264,7 @@ def test_tavily_search_fallback_and_discrepancy():
 def test_gap_analysis_details():
     schemes = load_schemes()
     s = _get_scheme_by_id(schemes, "ssp-sc-postmatric")
-    # Profile with multiple failures: higher income, wrong category, wrong state, wrong course
+    # Profile with multiple failures: higher income, wrong category, wrong state
     p = {
         "age": 19,
         "state": "Maharashtra",
@@ -305,15 +275,11 @@ def test_gap_analysis_details():
     }
     r = evaluate(p, s)
     assert r["status"] == "not_eligible"
-    assert len(r["gaps"]) == 4
+    assert len(r["gaps"]) == 3
     # Income gap must have exact calculation: 350000 - 250000 = 100000
     assert any("100,000 above the cap" in g for g in r["gaps"])
-    # Category gap
     assert any("Category 'General' is not in the accepted list" in g for g in r["gaps"])
-    # State gap
     assert any("State 'Maharashtra' is not in the accepted list" in g for g in r["gaps"])
-    # Course gap
-    assert any("Course 'Dance' is not in the accepted list" in g for g in r["gaps"])
 
 
 def test_what_if_simulation_deterministic():
@@ -329,20 +295,21 @@ def test_what_if_simulation_deterministic():
     }
     base_res = evaluate_all(base_profile, schemes)
     base_eligible_ids = {r["scheme"]["id"] for r in base_res if r["status"] == "eligible"}
+    assert "central-sector-scholarship" in base_eligible_ids
+    assert "ssp-bcwd-postmatric" not in base_eligible_ids
 
-    # What-if 1: Income reduced to 200,000
-    sim_profile_1 = {**base_profile, "annual_income": 200000}
+    # What-if 1: Category changed to OBC with income 200,000 unlocks BCWD and Vidyasiri
+    sim_profile_1 = {**base_profile, "annual_income": 200000, "category": "OBC"}
     sim_res_1 = evaluate_all(sim_profile_1, schemes)
     sim_1_eligible_ids = {r["scheme"]["id"] for r in sim_res_1 if r["status"] == "eligible"}
-    # Lower income should unlock additional schemes (like karnataka-free-laptop)
-    assert "karnataka-free-laptop" in sim_1_eligible_ids
-    assert "karnataka-free-laptop" not in base_eligible_ids
+    assert "ssp-bcwd-postmatric" in sim_1_eligible_ids
+    assert "karnataka-vidyasiri" in sim_1_eligible_ids
+    assert "karnataka-vidyasiri" not in base_eligible_ids
 
-    # What-if 2: Category changed to SC
+    # What-if 2: Category changed to SC with 200,000 unlocks the SC scholarship and Vidyasiri
     sim_profile_2 = {**base_profile, "annual_income": 200000, "category": "SC"}
     sim_res_2 = evaluate_all(sim_profile_2, schemes)
     sim_2_eligible_ids = {r["scheme"]["id"] for r in sim_res_2 if r["status"] == "eligible"}
-    # Changing category to SC with 200k income should unlock ssp-sc-postmatric and karnataka-vidyasiri
     assert "ssp-sc-postmatric" in sim_2_eligible_ids
     assert "karnataka-vidyasiri" in sim_2_eligible_ids
 
@@ -441,16 +408,7 @@ def test_json_parse_fallback_robustness():
 
 
 if __name__ == "__main__":
-
-
-
-
-
-
-
     for name, fn in list(globals().items()):
         if name.startswith("test_"):
             fn()
             print("ok", name)
-
-
