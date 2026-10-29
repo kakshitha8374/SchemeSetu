@@ -1,47 +1,42 @@
-# SchemeSetu: Scheme Rules Verification Sheet (VERIFY.md)
+# SchemeSetu: Scheme Verification Sheet
 
-Every rule value used in SchemeSetu's deterministic rules engine (`rules.py`) originates strictly from official government portals and scheme notifications. This document provides a transparent, auditable breakdown so any human reviewer can independently verify each value against the official source in minutes.
+Last reviewed: 2026-10-29. Every scheme in `schemes.json` is still `"verified": false`.
+Set a scheme to `true` only after you have opened its official page and confirmed each value below.
 
-> **Status:** All schemes are marked with `"verified": false` until final manual verification confirmation by the reviewer.
+"Secondhand" means the value was seen on a third-party listing that cites official sources. It is not a substitute for checking the official page.
 
-| Scheme ID | Scheme Name & Provider | Rule / Field | Value in Rules Engine | Official Source URL | Location on Source Page / Official Document | Verification Status |
-| :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-| `ssp-sc-postmatric` | Post-Matric Scholarship for SC Students (Social Welfare Dept, Karnataka) | `max_income` | ₹2,50,000 | https://ssp.postmatric.karnataka.gov.in (and https://sw.kar.nic.in) | "Post-Matric Scholarship Guidelines" - Eligibility income criteria section for Scheduled Castes | Confirmed from official notification |
-| `ssp-sc-postmatric` | Post-Matric Scholarship for SC Students | `categories` | SC | https://ssp.postmatric.karnataka.gov.in | Target department welfare section (Social Welfare Department) | Confirmed |
-| `ssp-sc-postmatric` | Post-Matric Scholarship for SC Students | `states` | Karnataka | https://ssp.postmatric.karnataka.gov.in | Domicile / State of Karnataka requirement | Confirmed |
-| `ssp-sc-postmatric` | Post-Matric Scholarship for SC Students | `min_age` | 15 | https://ssp.postmatric.karnataka.gov.in | Post-matric (Class 10 completed) requirement | Confirmed |
-| `ssp-st-postmatric` | Post-Matric Scholarship for ST Students (Tribal Welfare Dept, Karnataka) | `max_income` | ₹2,50,000 | https://ssp.postmatric.karnataka.gov.in (and https://tw.karnataka.gov.in) | Scheduled Tribes Welfare Post-Matric scholarship eligibility guidelines | Confirmed |
-| `ssp-st-postmatric` | Post-Matric Scholarship for ST Students | `categories` | ST | https://ssp.postmatric.karnataka.gov.in | Target department welfare section (Tribal Welfare) | Confirmed |
-| `ssp-st-postmatric` | Post-Matric Scholarship for ST Students | `states` | Karnataka | https://ssp.postmatric.karnataka.gov.in | Karnataka domicile condition | Confirmed |
-| `ssp-st-postmatric` | Post-Matric Scholarship for ST Students | `min_age` | 15 | https://ssp.postmatric.karnataka.gov.in | Post-matric eligibility requirement | Confirmed |
-| `ssp-bcwd-postmatric` | Post-Matric Scholarship for Backward Classes (BCWD, Karnataka) | `max_income` | ₹2,50,000 | https://bcwd.karnataka.gov.in (and https://ssp.postmatric.karnataka.gov.in) | Backward Classes Welfare Department Post-Matric Scheme criteria for Category 1 & OBCs | Confirmed (Cat-1 limit ₹2.5L; other sub-slabs require manual check) |
-| `ssp-bcwd-postmatric` | Post-Matric Scholarship for Backward Classes | `categories` | OBC | https://bcwd.karnataka.gov.in | Department eligible categories (Cat-1, 2A, 3A, 3B) | Confirmed |
-| `ssp-bcwd-postmatric` | Post-Matric Scholarship for Backward Classes | `states` | Karnataka | https://bcwd.karnataka.gov.in | Karnataka state resident condition | Confirmed |
-| `ssp-bcwd-postmatric` | Post-Matric Scholarship for Backward Classes | `min_age` | 15 | https://bcwd.karnataka.gov.in | Post-matric admission eligibility | Confirmed |
-| `karnataka-vidyasiri` | Vidyasiri Food and Accommodation Scheme (BCWD, Karnataka) | `max_income` | ₹2,50,000 | https://bcwd.karnataka.gov.in | Vidyasiri (Food & Accommodation) notification eligibility criteria | Confirmed |
-| `karnataka-vidyasiri` | Vidyasiri Food and Accommodation Scheme | `categories` | OBC, SC, ST | https://bcwd.karnataka.gov.in | Eligible student categories (BCWD, SC, ST) not availing departmental hostels | Confirmed |
-| `karnataka-vidyasiri` | Vidyasiri Food and Accommodation Scheme | `states` | Karnataka | https://bcwd.karnataka.gov.in | Karnataka domicile and studying outside home taluk | Confirmed |
-| `karnataka-vidyasiri` | Vidyasiri Food and Accommodation Scheme | `min_age` | 16 | https://bcwd.karnataka.gov.in | Post-matric collegiate enrollment requirement | Confirmed |
-| `aicte-pragati-girls` | AICTE Pragati Scholarship for Girl Students | `max_income` | ₹8,00,000 | https://scholarships.gov.in (and https://aicte-india.org) | AICTE Pragati Scheme Guidelines, Section 3 "Eligibility Criteria" - clause on family income ceiling | Confirmed |
-| `aicte-pragati-girls` | AICTE Pragati Scholarship for Girl Students | `genders` | Female | https://scholarships.gov.in | AICTE Pragati Scheme Guidelines, Section 2 "Objective" (for female students only) | Confirmed |
-| `aicte-pragati-girls` | AICTE Pragati Scholarship for Girl Students | `courses` | Engineering, Diploma, Pharmacy | https://scholarships.gov.in | AICTE Pragati Scheme Guidelines, approved AICTE technical degree/diploma courses | Confirmed |
-| `central-sector-scholarship` | Central Sector Scheme of Scholarship for College and University Students | `max_income` | ₹4,50,000 | https://scholarships.gov.in | Department of Higher Education Guidelines, Clause 4 "Eligibility" | Confirmed |
-| `central-sector-scholarship` | Central Sector Scheme of Scholarship | `min_age` | 17 | https://scholarships.gov.in | Age eligibility / 12th standard completion criteria | Confirmed |
-| `central-sector-scholarship` | Central Sector Scheme of Scholarship | `max_age` | 25 | https://scholarships.gov.in | Standard upper age bracket for regular undergraduate entry | Confirmed |
-| `central-sector-scholarship` | Central Sector Scheme of Scholarship | `courses` | Arts, Science, Commerce, Engineering, Medicine | https://scholarships.gov.in | Department of Higher Education regular collegiate courses | Confirmed |
-| `minority-mcm-technical` | Post-Matric / Merit-Cum-Means for Minorities (Directorate of Minorities, Karnataka) | `max_income` | ₹2,50,000 | https://dom.karnataka.gov.in | Directorate of Minorities MCM scheme guidelines for technical/professional studies | Confirmed |
-| `minority-mcm-technical` | Post-Matric / Merit-Cum-Means for Minorities | `states` | Karnataka | https://dom.karnataka.gov.in | Karnataka domicile requirement | Confirmed |
-| `ksbdb-saandeepani` | Saandeepani Shishya Vethana (KSBDB, Karnataka) | `max_income` | ₹8,00,000 | https://ksbdb.karnataka.gov.in | Karnataka State Brahmin Development Board EWS student scholarship notification | Confirmed (standard EWS income threshold) |
-| `ksbdb-saandeepani` | Saandeepani Shishya Vethana | `categories` | EWS, General | https://ksbdb.karnataka.gov.in | Target beneficiary group (unreserved / economically weaker community members) | Confirmed |
-| `ksbdb-saandeepani` | Saandeepani Shishya Vethana | `states` | Karnataka | https://ksbdb.karnataka.gov.in | Karnataka resident condition | Confirmed |
-| `karnataka-free-laptop` | Karnataka Free Laptop Scheme (Collegiate Education Dept, Karnataka) | `max_income` | ₹2,50,000 | https://dce.karnataka.gov.in | Department of Collegiate Education First-year degree laptop distribution notification | Confirmed |
-| `karnataka-free-laptop` | Karnataka Free Laptop Scheme | `states` | Karnataka | https://dce.karnataka.gov.in | First Grade Government/Aided Colleges in Karnataka requirement | Confirmed |
-| `karnataka-free-laptop` | Karnataka Free Laptop Scheme | `min_age` | 17 | https://dce.karnataka.gov.in | 1st year degree enrollment age condition | Confirmed |
-| `karnataka-free-laptop` | Karnataka Free Laptop Scheme | `max_age` | 25 | https://dce.karnataka.gov.in | Higher education entry bracket | Confirmed |
+## Schemes removed after review
 
-***
+| Scheme | Reason |
+| --- | --- |
+| Karnataka Free Laptop Scheme | Reported discontinued by the Deputy CM in the Assembly (Deccan Herald, 19 March 2020). No current notice found. |
+| Saandeepani Shishya Vethana (KSBDB) | Open to the Brahmin community only, not to all EWS or General students. The app has no community field. |
+| Minority Post-Matric / MCM (Karnataka) | Needs a minority-community condition the app cannot check. Official page could not be opened. |
 
-### Verification Instructions for Reviewers:
-1. Open each official URL listed above.
-2. Verify that the scheme name, department provider, income ceiling, eligible caste/social category, allowed courses, and gender rules match the values specified in the table.
-3. Once satisfied, change `"verified": false` to `"verified": true` in `schemes.json` for each validated scheme.
+## Values still in use
+
+| Scheme | Value | Status | Where to confirm |
+| --- | --- | --- | --- |
+| SSP SC Post-Matric | Income cap Rs 2.5 lakh | Not confirmed | https://ssp.postmatric.karnataka.gov.in |
+| SSP SC Post-Matric | Benefit amount | Not stated in app (varies by course) | https://ssp.postmatric.karnataka.gov.in |
+| SSP ST Post-Matric | Income cap Rs 2.5 lakh | Not confirmed | https://ssp.postmatric.karnataka.gov.in |
+| BCWD Post-Matric | Income cap: Cat-1 Rs 2.5 lakh; Cat-2A, 3A, 3B Rs 1 lakh | Secondhand (Buddy4Study) | https://bcwd.karnataka.gov.in |
+| BCWD Post-Matric | Benefit up to Rs 20,000 per year | Secondhand (Buddy4Study) | https://bcwd.karnataka.gov.in |
+| Vidyasiri | Income cap, categories, Rs 1,500 per month | Not confirmed (page could not be opened) | https://bcwd.karnataka.gov.in |
+| AICTE Pragati | Income cap Rs 8 lakh, courses, Rs 50,000 per year | Not confirmed (guidelines PDF could not be opened) | https://aicte.gov.in and https://scholarships.gov.in |
+| Central Sector Scholarship | Income cap Rs 4.5 lakh | Secondhand (IndiaScholarships.in) | https://scholarships.gov.in |
+| Central Sector Scholarship | Rs 12,000 per year (graduation), Rs 20,000 (post-graduation) | Secondhand (IndiaScholarships.in) | https://scholarships.gov.in |
+| Central Sector Scholarship | Deadline 31-10-2026 | Listed on scholarships.gov.in; unclear if it applies to new or renewal applications | https://scholarships.gov.in |
+
+## Known limits of the app
+
+- Central Sector Scholarship also requires being in the top 80th percentile of the board stream. The app does not check this.
+- BCWD Post-Matric uses the Rs 2.5 lakh Category 1 cap for all OBC students. Students in Cat-2A, 3A and 3B have a Rs 1 lakh cap, so the card text warns about this.
+- Age and course conditions were removed where no source confirmed them.
+
+## How to verify
+
+1. Open each URL above and find the eligibility section.
+2. Compare the value in the table with the page.
+3. If it matches, note the date. If not, correct `schemes.json`.
+4. Change `"verified"` to `true` only for schemes where every value matches.
