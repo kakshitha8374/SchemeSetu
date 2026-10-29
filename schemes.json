@@ -1,0 +1,178 @@
+[
+  {
+    "id": "ssp-sc-postmatric",
+    "name": "Post-Matric Scholarship for SC Students (SSP Karnataka)",
+    "provider": "Social Welfare Department, Government of Karnataka",
+    "state": "Karnataka",
+    "benefit": "Full tuition fee reimbursement and maintenance allowance up to Rs 60,000/year",
+    "benefit_amount": 60000,
+    "deadline": "Check official page",
+    "ease": "Medium",
+    "url": "https://ssp.postmatric.karnataka.gov.in",
+    "source_checked_on": "2026-10-28",
+    "verified": false,
+    "rules": {
+      "max_income": 250000,
+      "categories": ["SC"],
+      "states": ["Karnataka"],
+      "courses": ["Engineering", "Medicine", "Arts", "Science", "Commerce", "Diploma", "Law", "Pharmacy", "Nursing"],
+      "min_age": 15
+    }
+  },
+  {
+    "id": "ssp-st-postmatric",
+    "name": "Post-Matric Scholarship for ST Students (SSP Karnataka)",
+    "provider": "Scheduled Tribes Welfare Department, Government of Karnataka",
+    "state": "Karnataka",
+    "benefit": "Full tuition fee concession and monthly maintenance allowance",
+    "benefit_amount": 60000,
+    "deadline": "Check official page",
+    "ease": "Medium",
+    "url": "https://ssp.postmatric.karnataka.gov.in",
+    "source_checked_on": "2026-10-28",
+    "verified": false,
+    "rules": {
+      "max_income": 250000,
+      "categories": ["ST"],
+      "states": ["Karnataka"],
+      "courses": ["Engineering", "Medicine", "Arts", "Science", "Commerce", "Diploma", "Law", "Pharmacy", "Nursing"],
+      "min_age": 15
+    }
+  },
+  {
+    "id": "ssp-bcwd-postmatric",
+    "name": "Post-Matric Scholarship for Backward Classes (SSP Karnataka)",
+    "provider": "Backward Classes Welfare Department, Government of Karnataka",
+    "state": "Karnataka",
+    "benefit": "Maintenance allowance and fee assistance up to Rs 25,000/year",
+    "benefit_amount": 25000,
+    "deadline": "Check official page",
+    "ease": "Medium",
+    "url": "https://bcwd.karnataka.gov.in",
+    "source_checked_on": "2026-10-28",
+    "verified": false,
+    "rules": {
+      "max_income": 250000,
+      "categories": ["OBC"],
+      "states": ["Karnataka"],
+      "courses": ["Engineering", "Medicine", "Arts", "Science", "Commerce", "Diploma", "Law", "Pharmacy", "Nursing"],
+      "min_age": 15
+    }
+  },
+  {
+    "id": "karnataka-vidyasiri",
+    "name": "Vidyasiri Food and Accommodation Scheme (VFAS)",
+    "provider": "Backward Classes Welfare Department, Government of Karnataka",
+    "state": "Karnataka",
+    "benefit": "Monthly food and accommodation stipend of Rs 1,500/month (Rs 15,000/year)",
+    "benefit_amount": 15000,
+    "deadline": "Check official page",
+    "ease": "Medium",
+    "url": "https://bcwd.karnataka.gov.in",
+    "source_checked_on": "2026-10-28",
+    "verified": false,
+    "rules": {
+      "max_income": 250000,
+      "categories": ["OBC", "SC", "ST"],
+      "states": ["Karnataka"],
+      "courses": ["Engineering", "Medicine", "Arts", "Science", "Commerce", "Diploma", "Law", "Pharmacy", "Nursing"],
+      "min_age": 16
+    }
+  },
+  {
+    "id": "aicte-pragati-girls",
+    "name": "AICTE Pragati Scholarship for Girl Students",
+    "provider": "All India Council for Technical Education (AICTE) / Ministry of Education",
+    "state": "India",
+    "benefit": "Rs 50,000 per year for tuition and college expenses",
+    "benefit_amount": 50000,
+    "deadline": "Check official page",
+    "ease": "Medium",
+    "url": "https://scholarships.gov.in",
+    "source_checked_on": "2026-10-28",
+    "verified": false,
+    "rules": {
+      "max_income": 800000,
+      "genders": ["Female"],
+      "courses": ["Engineering", "Diploma", "Pharmacy"]
+    }
+  },
+  {
+    "id": "central-sector-scholarship",
+    "name": "Central Sector Scheme of Scholarship for College and University Students",
+    "provider": "Department of Higher Education, Ministry of Education, Govt of India",
+    "state": "India",
+    "benefit": "Rs 12,000 per annum for graduation and Rs 20,000 per annum for post-graduation",
+    "benefit_amount": 12000,
+    "deadline": "Check official page",
+    "ease": "Medium",
+    "url": "https://scholarships.gov.in",
+    "source_checked_on": "2026-10-28",
+    "verified": false,
+    "rules": {
+      "max_income": 450000,
+      "courses": ["Arts", "Science", "Commerce", "Engineering", "Medicine"],
+      "min_age": 17,
+      "max_age": 25
+    }
+  },
+  {
+    "id": "minority-mcm-technical",
+    "name": "Post-Matric / Merit-Cum-Means Scholarship for Minorities (Karnataka)",
+    "provider": "Directorate of Minorities, Government of Karnataka",
+    "state": "Karnataka",
+    "benefit": "Full course fee reimbursement and maintenance allowance up to Rs 30,000/year",
+    "benefit_amount": 30000,
+    "deadline": "Check official page",
+    "ease": "Medium",
+    "url": "https://dom.karnataka.gov.in",
+    "source_checked_on": "2026-10-28",
+    "verified": false,
+    "rules": {
+      "max_income": 250000,
+      "states": ["Karnataka"],
+      "courses": ["Engineering", "Medicine", "Arts", "Science", "Commerce", "Diploma", "Law", "Pharmacy", "Nursing"],
+      "min_age": 16
+    }
+  },
+  {
+    "id": "ksbdb-saandeepani",
+    "name": "Saandeepani Shishya Vethana (EWS Scholarship)",
+    "provider": "Karnataka State Brahmin Development Board, Government of Karnataka",
+    "state": "Karnataka",
+    "benefit": "Financial assistance and education stipend up to Rs 20,000/year",
+    "benefit_amount": 20000,
+    "deadline": "Check official page",
+    "ease": "Medium",
+    "url": "https://ksbdb.karnataka.gov.in",
+    "source_checked_on": "2026-10-28",
+    "verified": false,
+    "rules": {
+      "max_income": 800000,
+      "categories": ["EWS", "General"],
+      "states": ["Karnataka"],
+      "courses": ["Engineering", "Medicine", "Arts", "Science", "Commerce", "Diploma", "Law", "Pharmacy"],
+      "min_age": 16
+    }
+  },
+  {
+    "id": "karnataka-free-laptop",
+    "name": "Karnataka Free Laptop Scheme for First-Year College Students",
+    "provider": "Department of Collegiate Education, Government of Karnataka",
+    "state": "Karnataka",
+    "benefit": "Free laptop computer for higher education studies (estimated value Rs 35,000)",
+    "benefit_amount": 35000,
+    "deadline": "Check official page",
+    "ease": "High",
+    "url": "https://dce.karnataka.gov.in",
+    "source_checked_on": "2026-10-28",
+    "verified": false,
+    "rules": {
+      "max_income": 250000,
+      "states": ["Karnataka"],
+      "courses": ["Engineering", "Medicine", "Arts", "Science", "Commerce"],
+      "min_age": 17,
+      "max_age": 25
+    }
+  }
+]
